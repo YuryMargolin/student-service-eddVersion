@@ -56,7 +56,7 @@ export const findByName = (req, res) => {
 
 export const countByNames = (req, res) => {
     const names = req.query.names;
-    const list = Array.isArray(names) ? names : [names];
+    const list = Array.isArray(names) ? names : [names ?? ''];
     const count = repo.countByNames(list);
     res.json(count)
 }
