@@ -41,12 +41,11 @@ export const findByName = async (name) => {
 }
 
 export const countByNames = async (names) => {
-    const uniqueNames = new Set(names.map(name => name.toLowerCase()));
-    let count = 0;
-    for (const name of uniqueNames) {
-        count += (await collection.countDocuments({name: {$regex: `^${name}$`, $options: "i"}}))
-    }
-    return count;
+    const regexConditions = names.map(name => ({
+        name: {$regex: `^${name}$`, $options: "i"}
+    }));
+    return await collection.countDocuments({$or: regexConditions});
+
 }
 
 export const findByMinScore = async (exam, minScore) => {
