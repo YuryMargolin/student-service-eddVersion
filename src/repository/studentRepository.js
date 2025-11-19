@@ -13,7 +13,7 @@ export function deleteStudentById(id) {
 }
 
 export function updateStudent(id, data) {
-    return Student.findByIdAndUpdate(id, data);
+    return Student.findByIdAndUpdate(id, data, {new: true});
 }
 
 export function updateStudentScores(id,exam,score) {
