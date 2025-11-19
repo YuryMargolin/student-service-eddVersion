@@ -33,23 +33,25 @@ export const updateStudent = async (id, data) => {
 }
 
 export const addScore = async (id, exam, score) => {
-    const student = await repo.findStudentById(id)
-    if (!student) {
-        return false;
-    } else {
-        await repo.updateStudentScores(id, exam, score);
-        return true;
-    }
+    return await repo.updateStudentScores(id, exam, score);
 }
 
 export const findByName = async (name) => {
-    return repo.findStudentsByName(name);
+    const students = await repo.findStudentsByName(name);
+    return students.map(student => {
+        student.password = undefined;
+        return student;
+    });
 }
 
 export const countByNames = async (names) => {
-    return repo.countStudentsByName(names);
+    return await repo.countStudentsByName(names);
 }
 
 export const findByMinScore = async (exam, minScore) => {
-    return repo.findStudentsByMinScore(exam, minScore);
+    const students = await repo.findStudentsByMinScore(exam, minScore);
+    return students.map(student => {
+        student.password = undefined;
+        return student;
+    });
 }
